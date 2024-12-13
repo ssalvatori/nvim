@@ -110,6 +110,8 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
+      vim.keymap.set('n', '<space>fg', require 'custom.plugins.multi-ripgrep', { desc = 'Search with multi patterns' })
+
       vim.api.nvim_set_keymap('n', '<space>ott', ':Telescope terraform_doc<CR>', { noremap = true, desc = '[O]pen [Telescope] [T]erraform Doc' })
       vim.api.nvim_set_keymap('n', '<space>ota', ':Telescope terraform_doc full_name=hashicorp/aws<CR>', { noremap = true, desc = '[O]pen [Telescope] [A]ws' })
 
