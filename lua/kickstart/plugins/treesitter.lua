@@ -5,7 +5,7 @@ return {
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'terraform', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'python', 'go' },
+      ensure_installed = { 'bash', 'terraform', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'python', 'go', 'diff', 'regex', 'vimdoc', 'luadoc'},
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {

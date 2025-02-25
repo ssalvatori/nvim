@@ -61,4 +61,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+if vim.fn.getenv 'TERM_PROGRAM' == 'ghostty' then
+  vim.opt.title = true
+  vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+end
+
 -- vim: ts=2 sts=2 sw=2 et

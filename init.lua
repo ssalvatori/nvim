@@ -94,7 +94,6 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = false
 vim.opt.conceallevel = 2
 
-
 -- [[ Setting options ]]
 require 'options'
 
@@ -106,6 +105,9 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Mouse menu ]]
+require 'menu'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
