@@ -8,10 +8,7 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    -- keymap = {
-    --   preset = 'default',
-    --   -- ['<Tab>'] = { 'select_and_accept' },
-    -- },
+    keymap = { preset = 'default' },
     completion = {
       trigger = {
         show_on_keyword = true,
