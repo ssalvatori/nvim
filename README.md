@@ -1,5 +1,9 @@
 # kickstart-modular.nvim
 
+<a href="https://dotfyle.com/ssalvatori/nvim"><img src="https://dotfyle.com/ssalvatori/nvim/badges/plugins?style=flat" /></a>
+<a href="https://dotfyle.com/ssalvatori/nvim"><img src="https://dotfyle.com/ssalvatori/nvim/badges/leaderkey?style=flat" /></a>
+<a href="https://dotfyle.com/ssalvatori/nvim"><img src="https://dotfyle.com/ssalvatori/nvim/badges/plugin-manager?style=flat" /></a>
+
 ## Introduction
 
 *This is a fork of [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) that moves from a single file to a multi file configuration.*
