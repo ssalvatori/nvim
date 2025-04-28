@@ -65,6 +65,13 @@ return {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          ['terraform_doc'] = {
+            url_open_command = vim.fn.has 'macunix' and 'open' or 'xdg-open',
+            latest_provider_symbol = '  ',
+            wincmd = 'botright vnew',
+            wrap = 'nowrap',
+          },
+          ['wrap_results'] = true,
         },
       }
 
@@ -84,6 +91,11 @@ return {
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      vim.keymap.set('n', '<space>fg', require 'custom.telescope.multi-ripgrep', { desc = 'Search with multi patterns' })
+
+      vim.api.nvim_set_keymap('n', '<space>ott', ':Telescope terraform_doc<CR>', { noremap = true, desc = '[O]pen [Telescope] [T]erraform Doc' })
+      vim.api.nvim_set_keymap('n', '<space>ota', ':Telescope terraform_doc full_name=hashicorp/aws<CR>', { noremap = true, desc = '[O]pen [Telescope] [A]ws' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
