@@ -7,7 +7,7 @@
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -26,6 +26,7 @@ end)
 -- Enable break indent
 vim.o.breakindent = true
 
+vim.o.winborder = 'rounded'
 -- Save undo history
 vim.o.undofile = true
 
@@ -70,7 +71,6 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
-
 
 if vim.fn.getenv 'TERM_PROGRAM' == 'ghostty' then
   vim.opt.title = true
