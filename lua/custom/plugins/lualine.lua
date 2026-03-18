@@ -4,6 +4,7 @@ return {
   config = function()
     require('lualine').setup {
       options = {
+        theme = 'material',
         icons_enabled = true,
         component_separators = '|',
         section_separators = '',

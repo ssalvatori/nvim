@@ -9,5 +9,10 @@ return {
     vim.keymap.set('n', '<leader>wt', function()
       require('telescope').extensions.git_worktree.git_worktree()
     end, { desc = 'Worktrees' })
+
+    -- create a worktree inserting branch name
+    vim.keymap.set('n', '<leader>wc', function()
+      require('telescope').extensions.git_worktree.create_git_worktree()
+    end, { desc = 'Create Worktree' })
   end,
 }
