@@ -4,7 +4,7 @@ return {
     'neovim/nvim-lspconfig',
     'mfussenegger/nvim-dap',
     'mfussenegger/nvim-dap-python', --optional
-    { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'nvim-telescope/telescope.nvim', branch = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
   },
   -- lazy = false,
   ft = 'python', -- Load when opening Python files
@@ -15,7 +15,7 @@ return {
   ---@type venv-selector.Config
   opts = {
     -- Your settings go here
-    search = {}, -- if you add your own searches, they go here.
+    search = {},  -- if you add your own searches, they go here.
     options = {}, -- if you add plugin options, they go here.
   },
 }

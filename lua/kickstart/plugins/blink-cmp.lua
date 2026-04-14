@@ -2,6 +2,17 @@
 ---@type LazySpec
 return {
   {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  {
     'saghen/blink.compat',
     -- use v2.* for blink.cmp v1.*
     version = '2.*',
@@ -12,10 +23,13 @@ return {
   },
   { -- Autocompletion
     'saghen/blink.cmp',
-    -- event = 'VimEnter',
+    event = 'VimEnter',
     version = '1.*',
     dependencies = {
       -- Snippet Engine
+      {
+        'barrettruth/blink-cmp-ghostty',
+      },
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
@@ -30,12 +44,12 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -97,19 +111,26 @@ return {
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false },
-        -- documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
 
       sources = {
-<<<<<<< HEAD
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'ghostty' },
         providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          ghostty = {
+            name = 'ghostty',
+            module = 'blink-cmp-ghostty',
+          },
+          lazydev = {
+            name = "lazydev",
+            module = "lazydev.integrations.blink",
+            -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
+          },
         },
-=======
-        default = { 'lsp', 'path', 'snippets' },
->>>>>>> kickstart
+        -- providers = {
+        --   lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        -- },
       },
 
       snippets = { preset = 'default' },
@@ -121,7 +142,8 @@ return {
       -- the rust implementation via `'prefer_rust_with_warning'`
       --
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      -- fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },

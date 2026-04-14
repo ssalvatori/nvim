@@ -75,4 +75,15 @@ if vim.fn.getenv 'TERM_PROGRAM' == 'ghostty' then
   vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 end
 
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.o.swapfile = false
+-- vim.o.wrap = false
+-- vim.o.guicursor = ""
+vim.o.termguicolors = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.smartindent = true
+
+vim.o.colorcolumn = "89"
 -- vim: ts=2 sts=2 sw=2 et

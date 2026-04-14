@@ -14,7 +14,7 @@ vim.diagnostic.config {
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
 
   -- Can switch between these as you prefer
-  virtual_text = true, -- Text shows up at the end of the line
+  virtual_text = true,   -- Text shows up at the end of the line
   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
@@ -66,9 +66,18 @@ vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function() vim.hl.on_yank() end,
+  callback = function()
+    vim.hl.on_yank({
+      higroup = 'IncSearch',
+      timeout = 40,
+    })
+  end,
 })
 
-vim.keymap.set('n', 'ycc', '"yy" . v:count1 . "gcc\']p"', { remap = true, expr = true, desc = 'Duplicate and comment lines' })
+vim.keymap.set('n', 'ycc', '"yy" . v:count1 . "gcc\']p"',
+  { remap = true, expr = true, desc = 'Duplicate and comment lines' })
+
+vim.cmd("packadd nvim.undotree")
+vim.keymap.set("n", "<leader>u", require("undotree").open, { desc = "Open undo tree" })
 
 -- vim: ts=2 sts=2 sw=2 et

@@ -21,23 +21,16 @@ return {
     -- instead of just disabling it here, to keep your config clean.
     enabled = true,
     event = 'VimEnter',
+    version = '0.2.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
-        'nvim-telescope/telescope-fzf-native.nvim',
-
-        -- `build` is used to run some command when the plugin is installed/updated.
-        -- This is only run then, not every time Neovim starts up.
-        build = 'make',
-
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
-        cond = function() return vim.fn.executable 'make' == 1 end,
+        'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { "ANGkeith/telescope-terraform-doc.nvim" },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -72,6 +65,12 @@ return {
         -- },
         -- pickers = {}
         extensions = {
+          ['fzf '] = {
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+          },
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
@@ -88,6 +87,7 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'terraform_doc')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -105,8 +105,10 @@ return {
 
       vim.keymap.set('n', '<space>fg', require 'custom.telescope.multi-ripgrep', { desc = 'Search with multi patterns' })
 
-      vim.api.nvim_set_keymap('n', '<space>ott', ':Telescope terraform_doc<CR>', { noremap = true, desc = '[O]pen [Telescope] [T]erraform Doc' })
-      vim.api.nvim_set_keymap('n', '<space>ota', ':Telescope terraform_doc full_name=hashicorp/aws<CR>', { noremap = true, desc = '[O]pen [Telescope] [A]ws' })
+      vim.api.nvim_set_keymap('n', '<space>ott', ':Telescope terraform_doc<CR>',
+        { noremap = true, desc = '[O]pen [Telescope] [T]erraform Doc' })
+      vim.api.nvim_set_keymap('n', '<space>ota', ':Telescope terraform_doc full_name=hashicorp/aws<CR>',
+        { noremap = true, desc = '[O]pen [Telescope] [A]ws' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -132,7 +134,8 @@ return {
       )
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end,
+        { desc = '[S]earch [N]eovim files' })
     end,
   },
 }
