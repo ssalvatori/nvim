@@ -1,21 +1,11 @@
--- For `plugins/markview.lua` users.
-return {
-  'OXY2DEV/markview.nvim',
-  lazy = false,
-  priority = 49,
+vim.pack.add({
+    "https://github.com/OXY2DEV/markview.nvim",
+    "https://github.com/saghen/blink.cmp",
+    "https://github.com/nvim-tree/nvim-web-devicons"
+})
 
-  -- Completion for `blink.cmp`
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    'saghen/blink.cmp'
-  },
+require('markview').setup({
+  preview = { enable = false }
+})
 
-  config = function()
-    require("markview").setup({
-      preview = { enable = false }
-    })
-
-    vim.api.nvim_set_keymap("n", "<leader>m", "<CMD>Markview<CR>", { desc = "Toggles `markview` previews globally." })
-  end
-
-}
+vim.api.nvim_set_keymap("n", "<leader>m", "<CMD>Markview<CR>", { desc = "Toggles `markview` previews globally." })
