@@ -97,6 +97,6 @@ vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.smartindent = true
 
-vim.o.colorcolumn = "89"
+-- vim.o.colorcolumn = "89"
 
 -- vim: ts=2 sts=2 sw=2 et
