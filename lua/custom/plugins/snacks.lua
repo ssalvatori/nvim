@@ -1,25 +1,113 @@
-return {
-  'folke/snacks.nvim',
-  priority = 1000,
-  lazy = false,
-  ---@type snacks.Config
-  opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-    bigfile = { enabled = true },
-    dashboard = { enabled = true },
-    explorer = { enabled = true },
-    indent = { enabled = true },
-    input = { enabled = true },
-    picker = { enabled = true },
-    notifier = { enabled = true },
-    quickfile = { enabled = true },
-    scope = { enabled = true },
-    scroll = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
-    image = { enabled = false },
-    lazygit = { enabled = false },
+vim.pack.add { 'https://github.com/folke/snacks.nvim' }
+
+require('snacks').setup {
+  scroll = {
+    animate = {
+      duration = { step = 6, total = 140 },
+      easing = 'linear',
+    },
+  },
+  image = {
+    enabled = false, -- NOTE: Disable snacks.image
+    formats = {}, -- HACK: Disable image preview for other modules like picker
+  },
+  picker = {
+    layout = {
+      layout = {
+        box = 'horizontal',
+        width = 0.9,
+        min_width = 120,
+        height = 0.9,
+        {
+          box = 'vertical',
+          border = 'single',
+          title = '{title}',
+          { win = 'input', height = 1, border = 'bottom' },
+          { win = 'list', border = 'none' },
+        },
+        {
+          win = 'preview',
+          title = '{preview}',
+          width = 0.5,
+          border = 'single',
+          wo = {
+            cursorcolumn = false,
+          },
+        },
+      },
+    },
+    win = {
+      input = {
+        keys = {
+          -- ["<Esc>"] = { "close", mode = { "n", "i" } },
+          ['<c-y>'] = { 'confirm', mode = { 'n', 'i' } },
+        },
+        wo = {
+          cursorlineopt = 'line',
+        },
+      },
+    },
+    sources = {
+      explorer = {
+        hidden = true,
+        layout = {
+          layout = {
+            backdrop = false,
+            width = 55,
+            min_width = 55,
+            height = 0,
+            position = 'right',
+            border = 'none',
+            box = 'vertical',
+            -- {
+            -- 	win = "input",
+            -- 	height = 1,
+            -- 	border = "single",
+            -- 	title = "{title} {live} {flags}",
+            -- 	title_pos = "center",
+            -- },
+            { win = 'list', border = 'none' },
+            -- { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+          },
+        },
+      },
+      spelling = {
+        layout = {
+          layout = {
+            box = 'horizontal',
+            width = 0.6,
+            min_width = 60,
+            height = 0.8,
+            {
+              box = 'vertical',
+              border = 'single',
+              title = '{title}',
+              { win = 'input', height = 1, border = 'bottom' },
+              { win = 'list', border = 'none' },
+            },
+          },
+        },
+      },
+    },
+  },
+  indent = {
+    animate = {
+      enabled = false,
+    },
   },
 }
+
+vim.keymap.set('n', '<leader>ff', function()
+  Snacks.picker.files {
+    hidden = true,
+    ignored = true,
+  }
+end, { desc = '[F]ind [f]iles' })
+
+vim.keymap.set('n', '<leader>fb', function() Snacks.picker.buffers() end, { desc = '[F]ind [b]uffers' })
+
+vim.keymap.set('n', '<leader>fp', function() Snacks.picker.grep() end, { desc = '[F]ind [p]attern' })
+
+vim.keymap.set('n', '<leader>fg', function() Snacks.picker.git_status() end, { desc = '[F]ind [g]it diffs' })
+
+vim.keymap.set('n', '<leader>gt', function() Snacks.picker.lsp_type_definitions() end, { desc = '[G]o to [t]ype definition' })

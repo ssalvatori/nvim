@@ -8,7 +8,9 @@ require('conform').setup {
     -- You can specify filetypes to autoformat on save here:
     local enabled_filetypes = {
       -- lua = true,
-      -- python = true,
+      python = true,
+      go = true,
+      json = true
     }
     if enabled_filetypes[vim.bo[bufnr].filetype] then
       return { timeout_ms = 500 }
@@ -24,6 +26,10 @@ require('conform').setup {
     -- rust = { 'rustfmt' },
     -- Conform can also run multiple formatters sequentially
     -- python = { "isort", "black" },
+    go = { "gofmt" },
+    json = { "prettier" },
+    lua = { "stylua" },
+    json = { "prettier" },
     --
     -- You can use 'stop_after_first' to run the first available formatter from the list
     -- javascript = { "prettierd", "prettier", stop_after_first = true },
