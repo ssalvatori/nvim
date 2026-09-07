@@ -99,4 +99,6 @@ vim.o.smartindent = true
 
 -- vim.o.colorcolumn = "89"
 
+vim.o.autoread = true
+
 -- vim: ts=2 sts=2 sw=2 et
