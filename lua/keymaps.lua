@@ -14,7 +14,7 @@ vim.diagnostic.config {
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
 
   -- Can switch between these as you prefer
-  virtual_text = true,   -- Text shows up at the end of the line
+  virtual_text = true, -- Text shows up at the end of the line
   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
@@ -29,7 +29,7 @@ vim.diagnostic.config {
   },
 }
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', function() vim.diagnostic.setqflist { open = true } end, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -54,8 +54,6 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
-
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
@@ -70,22 +68,20 @@ vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
+--  See `:help vim.hl.hl_op()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.hl.on_yank({
+    vim.hl.hl_op {
       higroup = 'IncSearch',
       timeout = 40,
-    })
+    }
   end,
 })
+vim.keymap.set('n', 'ycc', '"yy" . v:count1 . "gcc\']p"', { remap = true, expr = true, desc = 'Duplicate and comment lines' })
 
-vim.keymap.set('n', 'ycc', '"yy" . v:count1 . "gcc\']p"',
-  { remap = true, expr = true, desc = 'Duplicate and comment lines' })
-
-vim.cmd("packadd nvim.undotree")
-vim.keymap.set("n", "<leader>u", require("undotree").open, { desc = "Open undo tree" })
+vim.cmd 'packadd nvim.undotree'
+vim.keymap.set('n', '<leader>u', require('undotree').open, { desc = 'Open undo tree' })
 
 -- vim: ts=2 sts=2 sw=2 et

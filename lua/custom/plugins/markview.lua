@@ -7,5 +7,3 @@ vim.pack.add {
 require('markview').setup {
   preview = { enable = false },
 }
-
-vim.api.nvim_set_keymap("n", "<leader>m", "<CMD>Markview<CR>", { desc = "Toggles `markview` previews globally." })

@@ -1,21 +1,31 @@
-return {
-  'linux-cultist/venv-selector.nvim',
-  dependencies = {
-    'neovim/nvim-lspconfig',
-    'mfussenegger/nvim-dap',
-    'mfussenegger/nvim-dap-python', --optional
-    { 'nvim-telescope/telescope.nvim', branch = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
-  },
-  -- lazy = false,
-  ft = 'python', -- Load when opening Python files
-  -- branch = 'regexp', -- This is the regexp branch, use this for the new version
-  keys = {
-    { ',v', '<cmd>VenvSelect<cr>' }, -- Open picker on keymap
-  },
-  ---@type venv-selector.Config
-  opts = {
-    -- Your settings go here
-    search = {},  -- if you add your own searches, they go here.
-    options = {}, -- if you add plugin options, they go here.
-  },
+vim.pack.add {
+  'https://github.com/linux-cultist/venv-selector.nvim',
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/nvim-telescope/telescope.nvim',
+  'https://github.com/neovim/nvim-lspconfig',
 }
+
+local function setup_venv_selector()
+  local status_ok, venv_selector = pcall(require, 'venv-selector')
+  if not status_ok then return end
+
+  venv_selector.setup {
+    settings = {
+      options = {
+        notify_user_on_venv_activation = true,
+      },
+    },
+  }
+end
+
+-- Lazy-load setup when opening Python files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'python',
+  callback = function() setup_venv_selector() end,
+  once = true,
+})
+
+-- Keymap to trigger the selection UI
+vim.keymap.set('n', '<leader>vs', '<cmd>VenvSelect<cr>', {
+  desc = 'Select Python Virtual Environment',
+})

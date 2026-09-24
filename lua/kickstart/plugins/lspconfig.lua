@@ -103,10 +103,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --  See `:help lsp-config` for information about keys and how to configure
 ---@type table<string, vim.lsp.Config>
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- tsc = {},
+  terraformls = {},
+  gopls = {},
+  pyright = {},
+  bashls = {},
+  dockerls = {},
+  yamlls = {},
   --
   -- Some languages (like rust) have entire language plugins that can be useful:
   --    https://github.com/mrcjkb/rustaceanvim
@@ -144,6 +146,7 @@ local servers = {
     settings = {
       Lua = {
         format = { enable = false }, -- Disable formatting (formatting is done by stylua)
+        diagnostics = { globals = { 'vim' } }, -- Recognize the `vim` global provided by Neovim
       },
     },
   },

@@ -12,6 +12,7 @@ require('snacks').setup {
     formats = {}, -- HACK: Disable image preview for other modules like picker
   },
   picker = {
+    ui_select = true, -- wire vim.ui.select (e.g. LSP code actions) to Snacks.picker.select
     layout = {
       layout = {
         box = 'horizontal',
@@ -96,19 +97,6 @@ require('snacks').setup {
     },
   },
 }
-
--- vim.keymap.set('n', '<leader>ff', function()
---   Snacks.picker.files {
---     hidden = true,
---     ignored = true,
---   }
--- end, { desc = '[F]ind [f]iles' })
-
 vim.keymap.set('n', '<leader>fb', function() Snacks.picker.buffers() end, { desc = '[F]ind [b]uffers' })
 
--- vim.keymap.set('n', '<leader>fp', function() Snacks.picker.grep() end, { desc = '[F]ind [p]attern' })
-
--- vim.keymap.set('n', '<leader>fg', function() Snacks.picker.git_status() end, { desc = '[F]ind [g]it diffs' })
-
-vim.keymap.set('n', '<leader>gt', function()   Snacks.picker.lsp_type_definitions()
-end, { desc = '[G]o to [t]ype definition' })
+vim.keymap.set('n', '<leader>gt', function() Snacks.picker.lsp_type_definitions() end, { desc = '[G]o to [t]ype definition' })

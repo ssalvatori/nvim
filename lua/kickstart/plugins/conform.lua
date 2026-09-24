@@ -10,7 +10,9 @@ require('conform').setup {
       -- lua = true,
       python = true,
       go = true,
-      json = true
+      json = true,
+      terraform = true,
+      lua = true,
     }
     if enabled_filetypes[vim.bo[bufnr].filetype] then
       return { timeout_ms = 500 }
@@ -26,16 +28,16 @@ require('conform').setup {
     -- rust = { 'rustfmt' },
     -- Conform can also run multiple formatters sequentially
     -- python = { "isort", "black" },
-    go = { "gofmt" },
-    json = { "prettier" },
-    lua = { "stylua" },
-    json = { "prettier" },
+    go = { 'gofmt' },
+    json = { 'prettier' },
+    lua = { 'stylua' },
+    terraform = { 'terraform_fmt' },
     --
     -- You can use 'stop_after_first' to run the first available formatter from the list
     -- javascript = { "prettierd", "prettier", stop_after_first = true },
   },
 }
 
-vim.keymap.set({ 'n', 'v' }, '<leader>f', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
+vim.keymap.set({ 'n', 'v' }, '<leader>rf', function() require('conform').format { async = true } end, { desc = '[R]efactor [F]ormat buffer' })
 
 -- vim: ts=2 sts=2 sw=2 et

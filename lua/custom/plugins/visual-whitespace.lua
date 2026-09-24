@@ -1,5 +1,15 @@
-return {
-  'mcauley-penney/visual-whitespace.nvim',
-  config = true,
-  -- keys = { 'v', 'V', '<C-v>' }, -- optionally, lazy load on visual mode keys
-}
+vim.pack.add({
+  'https://github.com/mcauley-penney/visual-whitespace.nvim',
+}, { load = false })
+
+-- configuring with lazy load on entering visual mode
+vim.api.nvim_create_autocmd('ModeChanged', {
+  pattern = '*:[vV\22]',
+  once = true,
+  callback = function()
+    vim.cmd.packadd 'visual-whitespace.nvim'
+    require('visual-whitespace').setup {
+      -- your opts here ...
+    }
+  end,
+})

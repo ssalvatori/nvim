@@ -38,6 +38,12 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name = ev.data.spec.name
     local kind = ev.data.kind
+
+    if name == 'fff' and (kind == 'install' or kind == 'update') then
+      if not ev.data.active then vim.cmd.packadd 'fff' end
+      require('fff.download').download_or_build_binary()
+    end
+
     if kind ~= 'install' and kind ~= 'update' then return end
 
     if name == 'telescope-fzf-native.nvim' and vim.fn.executable 'make' == 1 then
